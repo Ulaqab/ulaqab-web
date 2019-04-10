@@ -1,64 +1,66 @@
 <template>
-  <div :class="{'light-backgroud': !isDarkMode, 'dark-backgroud': isDarkMode}" class="container">
-    <div :class="{'light-request': !isDarkMode, 'dark-request': isDarkMode}" class="request">
+  <div
+    :class="{ 'light-background': !isDarkMode, 'dark-background': isDarkMode }"
+    class="container"
+  >
+    <div
+      :class="{ 'light-request': !isDarkMode, 'dark-request': isDarkMode }"
+      class="request"
+    >
       Don't have a Ulanqab account?
       <router-link to="/request">Request an account</router-link>
     </div>
     <div class="login">
-      <img src="@/assets/logo.png">
-      <h4 :class="{'light-text': !isDarkMode, 'dark-text': isDarkMode}">Sign into Ulanqab</h4>
+      <img src="@/assets/logo.png" />
+      <h4 :class="{ 'light-text': !isDarkMode, 'dark-text': isDarkMode }">
+        Sign into Ulanqab
+      </h4>
       <input
-        :class="{'light-field': isDarkMode, 'dark-field': !isDarkMode}"
+        :class="{ 'light-field': isDarkMode, 'dark-field': !isDarkMode }"
         type="email"
         placeholder="Email"
-      >
+      />
       <input
-        :class="{'light-field': isDarkMode, 'dark-field': !isDarkMode}"
+        :class="{ 'light-field': isDarkMode, 'dark-field': !isDarkMode }"
         type="password"
         placeholder="Password"
-      >
+      />
       <button>Sign In</button>
       <router-link
-        :class="{'light-link': !isDarkMode, 'dark-link': isDarkMode}"
+        :class="{ 'light-link': !isDarkMode, 'dark-link': isDarkMode }"
         to="/recover"
-      >Forgot your password?</router-link>
-      <button @click="toggleDarkMode">Toggle</button>
+        >Forgot your password?
+      </router-link>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+
 @Component
 export default class SignIn extends Vue {
-  private isDarkMode!: Boolean;
-  private data() {
-    return {
-      isDarkMode: true
-    };
-  }
-
-  private toggleDarkMode() {
-    this.isDarkMode = !this.isDarkMode;
-    document.body.style.background = this.isDarkMode ? "#212c4f" : "#f0f3f5";
+  get isDarkMode(): Boolean {
+    return this.$store.getters.isDarkMode;
   }
 }
 </script>
 
-
 <style scope lang="scss">
 .container {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  margin-top: 40px;
 }
 
-.light-backgroud {
+.light-background {
   background-color: $light-gray;
 }
 
-.dark-backgroud {
+.dark-background {
   background-color: $dark-blue;
 }
 

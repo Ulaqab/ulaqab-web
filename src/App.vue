@@ -1,16 +1,23 @@
 <template>
   <div id="app">
-    <router-view/>
+    <Header />
+    <div class="container">
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import Header from "@/components/Header.vue"; // @ is an alias to /src
+
 export default Vue.extend({
-  name: "App"
+  name: "App",
+  components: {
+    Header
+  }
 });
 </script>
-
 
 <style lang="scss">
 body {
@@ -31,5 +38,8 @@ p {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: $white;
+}
+
+#container {
 }
 </style>
