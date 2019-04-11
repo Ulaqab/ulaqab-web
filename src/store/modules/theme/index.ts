@@ -1,9 +1,10 @@
 import { Commit } from "vuex";
 
 import { State, Theme } from "@/store/modules/theme/types";
+const userSelectedDarkMode = window.localStorage.getItem("isDarkMode") === "true";
 
 const theme: Theme = {
-  isDarkMode: false
+  isDarkMode: userSelectedDarkMode
 };
 
 const state: State = {
@@ -25,6 +26,7 @@ const actions = {
 const mutations = {
   toggleTheme(state: State) {
     state.theme.isDarkMode = !state.theme.isDarkMode;
+    window.localStorage.setItem('isDarkMode', `${state.theme.isDarkMode}`);
   }
 };
 
