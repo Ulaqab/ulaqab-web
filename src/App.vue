@@ -18,8 +18,8 @@ export default Vue.extend({
   }
 });
 </script>
-
 <style lang="scss">
+
 body {
   background-color: $dark-blue;
 }
@@ -41,5 +41,8 @@ p {
 }
 
 #container {
+}
+* {
+  transition: .8s cubic-bezier(.2, .8, .2, 1);
 }
 </style>
