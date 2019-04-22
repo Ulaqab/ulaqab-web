@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header />
-    <div class="container">
+    <div id="container">
       <router-view />
     </div>
   </div>
@@ -19,9 +19,9 @@ export default Vue.extend({
 });
 </script>
 <style lang="scss">
-
 body {
   background-color: $dark-blue;
+  font-size: 1rem;
 }
 
 h1 {
@@ -41,8 +41,10 @@ p {
 }
 
 #container {
+  min-height: 100vh;
+  margin-top: 75px;
 }
 * {
-  transition: .8s cubic-bezier(.2, .8, .2, 1);
+  transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 </style>

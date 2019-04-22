@@ -5,13 +5,13 @@
       <router-link to="/about">About</router-link>|
       <router-link to="/signin">Sign In</router-link>
     </div>
-    <div 
-      @click="toggleDarkMode" 
-      :class="{'light-toggle': !isDarkMode, 'dark-toggle': isDarkMode}"
+    <div
+      @click="toggleDarkMode"
+      :class="{ 'light-toggle': !isDarkMode, 'dark-toggle': isDarkMode }"
       class="toggle"
     >
-      <div 
-        :class="{'toggle-left': !isDarkMode, 'toggle-right': isDarkMode}"
+      <div
+        :class="{ 'toggle-left': !isDarkMode, 'toggle-right': isDarkMode }"
         class="toggle-switch"
       >
         <img v-if="!isDarkMode" src="@/assets/icons/sun.svg" />
@@ -80,14 +80,14 @@ header {
 
 .light-toggle {
   background: linear-gradient(346.78deg, #f7fcfc 0%, #fafcfa 100%);
-  border: 1px solid rgba(0, 0, 0, .04);
-  box-shadow: inset 0 5px 10px rgba(0, 0, 0, .1);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
 .dark-toggle {
-  background: rgba(255, 255, 255, .1);
-  border: 1px solid rgba(255, 255, 255, .01);
-  box-shadow: inset 0 5px 10px rgba(255, 255, 255, .1);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.01);
+  box-shadow: inset 0 5px 10px rgba(255, 255, 255, 0.1);
 }
 
 .toggle-switch {
@@ -98,13 +98,13 @@ header {
 
 .toggle-left {
   transform: translateX(0);
-  background: #FFFFFF;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, .01);
+  background: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.01);
 }
 
 .toggle-right {
   transform: translateX(90%);
   background: #1b233f;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, .01);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.01);
 }
 </style>
