@@ -1,14 +1,14 @@
 import { Commit } from "vuex";
-import { axiosGet } from "@/api/http/client";
+import { getChannels } from "@/api/services/common";
 
 interface State {
   channels: [];
-  currentIndex: number,
+  currentIndex: number;
 }
 
 const state: State = {
   channels: [],
-  currentIndex: 1,
+  currentIndex: 1
 };
 
 const getters = {
@@ -22,13 +22,15 @@ const getters = {
 
 const actions = {
   getChannelList(context: { commit: Commit }) {
-    const url = "/api/category/list";
-    axiosGet(url).then((res: any) => {
-      context.commit('updateChannelList', res.data.data.list);
-    }, (error: string) => {});
+    getChannels().then(
+      (res: any) => {
+        context.commit("updateChannelList", res.data.list);
+      },
+      (error: string) => {}
+    );
   },
   updateChannelIndex(context: { commit: Commit }, index: number) {
-    context.commit('updateChannelIndex', index);
+    context.commit("updateChannelIndex", index);
   }
 };
 

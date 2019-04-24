@@ -6,10 +6,14 @@
         :key="channel.id"
         @click="onClickItemListener(channel.id)"
         :class="{
-          'layout-channel-bar__item--active--dark': channel.id === currentIndex && isDarkMode,
-          'layout-channel-bar__item--active--light': channel.id === currentIndex && !isDarkMode,
-          'layout-channel-bar__item--normal--dark': channel.id !== currentIndex && isDarkMode,
-          'layout-channel-bar__item--normal--light': channel.id !== currentIndex && !isDarkMode,
+          'layout-channel-bar__item--active--dark':
+            channel.id === currentIndex && isDarkMode,
+          'layout-channel-bar__item--active--light':
+            channel.id === currentIndex && !isDarkMode,
+          'layout-channel-bar__item--normal--dark':
+            channel.id !== currentIndex && isDarkMode,
+          'layout-channel-bar__item--normal--light':
+            channel.id !== currentIndex && !isDarkMode
         }"
         class="layout-channel-bar__item"
       >
@@ -29,7 +33,7 @@ export default class Home extends Vue {
   beforeMount() {
     this.$store.dispatch("getChannelList");
   }
-  get isDarkMode(): Boolean {
+  get isDarkMode(): boolean {
     return this.$store.getters.isDarkMode;
   }
   get ChannelList() {
@@ -76,4 +80,3 @@ export default class Home extends Vue {
   }
 }
 </style>
-
