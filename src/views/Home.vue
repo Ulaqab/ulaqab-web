@@ -20,18 +20,35 @@
         <span>{{ channel.name }}</span>
       </div>
     </div>
+    <div class="feed-container">
+      <FeedItem v-for="feed in FeedList" :key="feed.id" :feed="feed" />
+      <BottomView
+        v-if="bottomViewStatus.show"
+        :statu="bottomViewStatus.status"
+      />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
+import FeedItem from "@/components/FeedItem.vue";
+import BottomView from "@/components/BottomView.vue";
 @Component({
-  components: {}
+  components: {
+    FeedItem,
+    BottomView
+  }
 })
 export default class Home extends Vue {
   beforeMount() {
-    this.$store.dispatch("getChannelList");
+    const params = {
+      page: 1,
+      count: 10,
+      category: this.currentIndex
+    };
+    this.$store.dispatch("getFeedList", params);
   }
   get isDarkMode(): boolean {
     return this.$store.getters.isDarkMode;
@@ -39,8 +56,14 @@ export default class Home extends Vue {
   get ChannelList() {
     return this.$store.getters.channels;
   }
+  get FeedList() {
+    return this.$store.getters.feeds;
+  }
   get currentIndex() {
     return this.$store.getters.currentIndex;
+  }
+  get bottomViewStatus() {
+    return this.$store.getters.bottomViewStatus;
   }
   onClickItemListener(index: number) {
     this.$store.dispatch("updateChannelIndex", index);
@@ -78,5 +101,8 @@ export default class Home extends Vue {
       }
     }
   }
+}
+.feed-container {
+  min-height: 100vh;
 }
 </style>

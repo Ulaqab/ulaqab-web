@@ -27,6 +27,7 @@ Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 @mixin heading-4($color: $white) {
   font-size: 24px;
   line-height: 34px;
+  margin: 0;
   font-weight: bold;
   color: $color;
 }
