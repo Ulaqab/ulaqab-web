@@ -13,15 +13,15 @@ module.exports = {
   devServer: {
     proxy: {
       "/api": {
-        target: "http://172.31.100.217:9000",
+        target: "http://39.106.175.28:8001",
         changeOrigin: true,
-        ws: true,
+        ws: false,
         pathRewrite: {
           "^/api": "/api"
         }
       },
       "/img": {
-        target: "http://172.31.100.217:9000",
+        target: "http://39.106.175.28:8001",
         changeOrigin: true,
         pathRewrite: {
           "^/img": "/img"
