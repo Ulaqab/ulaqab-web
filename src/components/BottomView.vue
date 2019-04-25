@@ -1,6 +1,6 @@
 <template>
   <div class="c-bottom-view-wrap">
-    <span>~ {{ status[statu] }} ~</span>
+    <span :class="className">~ {{ status[statu] }} ~</span>
   </div>
 </template>
 <script lang="ts">
@@ -22,6 +22,12 @@ export default Vue.extend({
         error: "加载错误"
       }
     };
+  },
+  computed: {
+    className(): string {
+      const isDarkMode = this.$store.getters.isDarkMode;
+      return `${isDarkMode ? "light" : "dark"}-text`;
+    }
   }
 });
 </script>
@@ -30,7 +36,12 @@ export default Vue.extend({
   line-height: 68px;
   > span {
     font-size: 18px;
-    color: #ffffff;
   }
+}
+.dark-text {
+  color: $dark-gray;
+}
+.light-text {
+  color: $light-blue;
 }
 </style>
