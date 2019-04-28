@@ -17,7 +17,7 @@ export default Vue.extend({
     }
   },
   computed: {
-    content(): String {
+    content(): string {
       moment.locale("zh-CN");
       return moment(this.value).fromNow();
     }
