@@ -3,7 +3,8 @@
     <div class="nav">
       <router-link to="/">Home</router-link>|
       <router-link to="/about">About</router-link>|
-      <router-link to="/signin">Sign In</router-link>
+      <router-link to="/signin">Sign In</router-link>|
+      <router-link to="/create/feed">FeedCreate</router-link>
     </div>
     <div
       @click="toggleDarkMode"

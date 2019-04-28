@@ -3,5 +3,7 @@ const BASE_URL = "/api";
 export default {
   BASE_URL,
   CHANNEL_LIST: `${BASE_URL}/category/list`,
-  FEED_LIST: `${BASE_URL}/feed/list`
+  FEED_LIST: `${BASE_URL}/feed/list`,
+  FEED_CREATE: `${BASE_URL}/feed/create`,
+  FEED_UPDATE: `${BASE_URL}/feed/update`
 };

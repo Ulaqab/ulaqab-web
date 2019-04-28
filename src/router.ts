@@ -5,6 +5,7 @@ import About from "@/views/About.vue";
 import SignIn from "@/views/SignInFlow/SignIn.vue";
 import Request from "@/views/SignInFlow/SignIn.vue";
 import Recover from "@/views/SignInFlow/SignIn.vue";
+import FeedCreate from "@/views/create/feed/FeedCreate.vue";
 
 Vue.use(Router);
 
@@ -36,6 +37,11 @@ export default new Router({
       path: "/recover",
       name: "recover",
       component: Recover
+    },
+    {
+      path: "/create/feed",
+      name: "feed-create",
+      component: FeedCreate
     }
   ]
 });
