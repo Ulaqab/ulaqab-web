@@ -21,11 +21,15 @@
       </div>
     </div>
     <div class="feed-container">
-      <FeedItem v-for="feed in FeedList" :key="feed.id" :feed="feed" />
-      <BottomView
-        v-if="bottomViewStatus.show"
-        :statu="bottomViewStatus.status"
-      />
+      <list-view
+        :loading="loadStatus === 'loading'"
+        :finished="loadStatus === 'noMore'"
+        :error="loadStatus === 'error'"
+        @load="onLoadMore"
+      >
+        <FeedItem v-for="feed in FeedList" :key="feed.id" :feed="feed" />
+        <BottomView v-if="loadStatus.show" :statu="loadStatus.status" />
+      </list-view>
     </div>
   </div>
 </template>
@@ -33,10 +37,13 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
+import ListView from "@/components/list/ListView.vue";
 import FeedItem from "@/components/FeedItem.vue";
 import BottomView from "@/components/BottomView.vue";
+import { stop } from "../components/list/event";
 @Component({
   components: {
+    ListView,
     FeedItem,
     BottomView
   }
@@ -44,12 +51,13 @@ import BottomView from "@/components/BottomView.vue";
 export default class Home extends Vue {
   beforeMount() {
     const params = {
-      page: 1,
+      page: this.page,
       count: 10,
       category: this.currentIndex
     };
     this.$store.dispatch("getFeedList", params);
   }
+
   get isDarkMode(): boolean {
     return this.$store.getters.isDarkMode;
   }
@@ -62,11 +70,27 @@ export default class Home extends Vue {
   get currentIndex() {
     return this.$store.getters.currentIndex;
   }
-  get bottomViewStatus() {
-    return this.$store.getters.bottomViewStatus;
+  get page() {
+    return this.$store.getters.page;
+  }
+  get loadStatus() {
+    return this.$store.getters.loadStatus;
   }
   onClickItemListener(index: number) {
     this.$store.dispatch("updateChannelIndex", index);
+  }
+  onLoadMore() {
+    if (this.loadStatus.show) return;
+    if (this.loadStatus.status === "noMore") return;
+    if (this.loadStatus.status === "empty") return;
+    if (this.loadStatus.status === "error") return;
+    const page = this.page + 1;
+    const params = {
+      page: page,
+      count: 10,
+      category: this.currentIndex
+    };
+    this.$store.dispatch("getFeedList", params);
   }
 }
 </script>

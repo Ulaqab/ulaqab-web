@@ -5,20 +5,22 @@ interface State {
   currentIndex: number;
   channels: [];
   feeds: [];
-  bottomViewStatus: {
+  loadStatus: {
     status: string;
     show: boolean;
   };
+  page: number;
 }
 
 const state: State = {
   currentIndex: 1,
   channels: [],
   feeds: [],
-  bottomViewStatus: {
+  loadStatus: {
     status: "idle",
     show: false
-  }
+  },
+  page: 1
 };
 
 const getters = {
@@ -31,8 +33,11 @@ const getters = {
   feeds(state: State) {
     return state.feeds;
   },
-  bottomViewStatus(state: State) {
-    return state.bottomViewStatus;
+  page(state: State) {
+    return state.page;
+  },
+  loadStatus(state: State) {
+    return state.loadStatus;
   }
 };
 
@@ -61,23 +66,35 @@ const actions = {
     context: { commit: Commit; dispatch: Dispatch },
     params: any
   ) {
+    context.commit("updatePage", params.page);
     if (params.page > 1) {
-      context.commit("updateBottomViewStatus", "loading");
+      context.commit("updateLoadStatus", "loading");
     }
     if (params.page === 1) {
+      context.commit("updateLoadStatus", "idle");
       await context.dispatch("getChannelList");
     }
     api.getFeeds(params).then(
       (res: any) => {
-        context.commit("updateFeedList", res.data.list);
-        let status = res.data.hasMore ? "complete" : "noMore";
-        if (params.page === 1 && res.data.list.length < 1) {
-          status = "empty";
+        if (params.page === 1) {
+          context.commit("updateFeedList", {
+            refresh: true,
+            data: res.data.list
+          });
+          if (res.data.list.length < 1) {
+            context.commit("updateLoadStatus", "empty");
+          }
+        } else {
+          const status = res.data.list.length < 10 ? "noMore" : "complete";
+          context.commit("updateFeedList", {
+            refresh: false,
+            data: res.data.list
+          });
+          context.commit("updateLoadStatus", status);
         }
-        context.commit("updateBottomViewStatus", status);
       },
       (error: string) => {
-        context.commit("updateBottomViewStatus", "error");
+        context.commit("updateLoadStatus", "error");
       }
     );
   }
@@ -90,12 +107,19 @@ const mutations = {
   updateChannelList(state: State, channelList: []) {
     state.channels = channelList;
   },
-  updateFeedList(state: State, feedList: []) {
-    state.feeds = feedList;
+  updateFeedList(state: State, arg: { refresh: boolean; data: [] }) {
+    if (arg.refresh) {
+      state.feeds = arg.data;
+    } else {
+      state.feeds = [...state.feeds, ...arg.data];
+    }
   },
-  updateBottomViewStatus(state: State, status: string) {
-    state.bottomViewStatus.status = status;
-    state.bottomViewStatus.show =
+  updatePage(state: State, page: number) {
+    state.page = page;
+  },
+  updateLoadStatus(state: State, status: string) {
+    state.loadStatus.status = status;
+    state.loadStatus.show =
       status === "loading" ||
       status === "error" ||
       status === "empty" ||
