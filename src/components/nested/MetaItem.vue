@@ -6,9 +6,8 @@ import Vue from "vue";
 export default Vue.extend({
   props: {
     value: {
-      type: String,
-      required: true,
-      default: ""
+      type: [String, Number],
+      required: true
     }
   },
   computed: {

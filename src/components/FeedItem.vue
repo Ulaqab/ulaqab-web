@@ -1,8 +1,8 @@
 <template>
   <section class="c-feed-item">
     <a>
-      <h3>{{ feed.title }}</h3>
-      <p class="content">{{ feed.content }}</p>
+      <Title :value="feed.title" />
+      <Content :value="feed.content" />
       <div class="meta-wrap">
         <img :src="feed.avatar" class="avatar" alt="user-avatar" />
         <MetaItem :value="feed.nickName" />
@@ -16,11 +16,15 @@
 </template>
 
 <script lang="ts">
+import Title from "@/components/nested/Title.vue";
+import Content from "@/components/nested/Content.vue";
 import MetaItem from "@/components/nested/MetaItem.vue";
 import CreateAt from "@/components/nested/CreateAt.vue";
 import Vue from "vue";
 export default Vue.extend({
   components: {
+    Title,
+    Content,
     MetaItem,
     CreateAt
   },
@@ -37,16 +41,6 @@ export default Vue.extend({
 .c-feed-item {
   padding: 16px 32px;
   text-align: center;
-}
-h3 {
-  @include heading_4($white);
-  text-align: left;
-}
-.content {
-  font-size: 18px;
-  color: $white;
-  margin: 0;
-  text-align: left;
 }
 .meta-wrap {
   display: flex;
