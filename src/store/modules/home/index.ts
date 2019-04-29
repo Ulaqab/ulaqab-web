@@ -4,7 +4,7 @@ import * as api from "@/api/services/common";
 interface State {
   currentIndex: number;
   channels: [];
-  feeds: [];
+  feeds: any[];
   loadStatus: {
     status: string;
     show: boolean;

@@ -3,7 +3,7 @@
     <slot></slot>
   </div>
 </template>
-<script lang="ts">
+<script>
 import Vue from "vue";
 import { on, off } from "@/components/list/event";
 import {
@@ -103,7 +103,7 @@ export default Vue.extend({
         this.$emit("load");
       }
     },
-    handler(bind: boolean) {
+    handler(bind) {
       if (this.binded !== bind) {
         this.binded = bind;
         (bind ? on : off)(this.scroller, "scroll", this.check);
