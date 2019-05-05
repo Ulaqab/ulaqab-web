@@ -9,11 +9,10 @@ module.exports = {
       }
     }
   },
-
   devServer: {
     proxy: {
       "/api": {
-        target: "http://39.106.175.28:8001",
+        target: "http://ulanqab.fun:8001",
         changeOrigin: true,
         ws: false,
         pathRewrite: {
@@ -21,7 +20,7 @@ module.exports = {
         }
       },
       "/img": {
-        target: "http://39.106.175.28:8001",
+        target: "http://ulanqab.fun:8001",
         changeOrigin: true,
         pathRewrite: {
           "^/img": "/img"
