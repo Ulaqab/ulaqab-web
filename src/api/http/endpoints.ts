@@ -1,6 +1,7 @@
-const BASE_URL = process.env.NODE_ENV === 'development' 
-? "/api" 
-: "http://ulanqab.fun:8001/api";
+const BASE_URL =
+  process.env.NODE_ENV === "development"
+    ? "/api"
+    : "https://ulanqab.fun:8001/api";
 export default {
   BASE_URL,
   CHANNEL_LIST: `${BASE_URL}/category/list`,
