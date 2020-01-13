@@ -21,15 +21,19 @@
       </div>
     </div>
     <div class="feed-container">
-      <list-view
+      <List v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoadMore">
+        <FeedItem v-for="feed in FeedList" :key="feed.id" :feed="feed"/>
+        <BottomView v-if="loadStatus.show" :statu="loadStatus.status"/>
+      </List>
+      <!-- <list-view
         :loading="loadStatus === 'loading'"
         :finished="loadStatus === 'noMore'"
         :error="loadStatus === 'error'"
         @load="onLoadMore"
       >
-        <FeedItem v-for="feed in FeedList" :key="feed.id" :feed="feed" />
-        <BottomView v-if="loadStatus.show" :statu="loadStatus.status" />
-      </list-view>
+        <FeedItem v-for="feed in FeedList" :key="feed.id" :feed="feed"/>
+        <BottomView v-if="loadStatus.show" :statu="loadStatus.status"/>
+      </list-view>-->
     </div>
   </div>
 </template>
@@ -37,13 +41,13 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import ListView from "@/components/list/ListView.vue";
 import FeedItem from "@/components/FeedItem.vue";
 import BottomView from "@/components/BottomView.vue";
+import { List } from "vant";
 import { stop } from "../components/list/event";
 @Component({
   components: {
-    ListView,
+    List,
     FeedItem,
     BottomView
   }
@@ -56,6 +60,12 @@ export default class Home extends Vue {
       category: this.currentIndex
     };
     this.$store.dispatch("getFeedList", params);
+  }
+
+  data() {
+    return {
+      loading: false
+    };
   }
 
   get isDarkMode(): boolean {
@@ -80,10 +90,10 @@ export default class Home extends Vue {
     this.$store.dispatch("updateChannelIndex", index);
   }
   onLoadMore() {
-    if (this.loadStatus.show) return;
-    if (this.loadStatus.status === "noMore") return;
-    if (this.loadStatus.status === "empty") return;
-    if (this.loadStatus.status === "error") return;
+    // if (this.loadStatus.show) return;
+    // if (this.loadStatus.status === "noMore") return;
+    // if (this.loadStatus.status === "empty") return;
+    // if (this.loadStatus.status === "error") return;
     const page = this.page + 1;
     const params = {
       page: page,

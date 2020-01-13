@@ -4,7 +4,7 @@ import * as api from "@/api/services/common";
 interface State {
   currentIndex: number;
   channels: [];
-  feeds: [];
+  feeds: any[];
   loadStatus: {
     status: string;
     show: boolean;
@@ -59,7 +59,7 @@ const actions = {
       (res: any) => {
         context.commit("updateChannelList", res.data.list);
       },
-      (error: string) => {}
+      (error: string) => { }
     );
   },
   async getFeedList(
@@ -111,7 +111,7 @@ const mutations = {
     if (arg.refresh) {
       state.feeds = arg.data;
     } else {
-      state.feeds = [...state.feeds, ...arg.data];
+      state.feeds = state.feeds.concat(arg.data);
     }
   },
   updatePage(state: State, page: number) {
