@@ -59,7 +59,7 @@ const actions = {
       (res: any) => {
         context.commit("updateChannelList", res.data.list);
       },
-      (error: string) => { }
+      () => { }
     );
   },
   async getFeedList(
